@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     rollupOptions: {
-      input: 'frontend/src/main.ts', // Adjust the path to the main.ts file
+      input: './src/main.ts', // Adjust the path to the main.ts file
     },
   },
 })
