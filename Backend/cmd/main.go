@@ -1,15 +1,17 @@
 package main
 
 import (
+	"Go-Poker/config"
+	"Go-Poker/pkg/api"
+	"Go-Poker/pkg/db"
+	"Go-Poker/pkg/utils"
 	"fmt"
 	"log"
-
-	"github.com/shakedgo/Go-Poker/Backend/config"
-	"github.com/shakedgo/Go-Poker/Backend/pkg/api"
-	"github.com/shakedgo/Go-Poker/Backend/pkg/db"
 )
 
 func main() {
+	str := utils.ExampleHelperFunction("dsa")
+	fmt.Println(str)
 	// Load configurations
 	appConfig := config.NewConfig()
 

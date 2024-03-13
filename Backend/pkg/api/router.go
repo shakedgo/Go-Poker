@@ -1,19 +1,24 @@
-// pkg/api/handler.go
-
 package api
 
 import (
+	"Go-Poker/pkg/db"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 // Handler defines the API request handlers.
-type Handler struct{}
+type Handler struct {
+	// You can include database connections, services, or other dependencies here
+	DB *db.Database
+}
 
 // NewHandler creates a new instance of the API handler.
-func NewHandler() *Handler {
-	return &Handler{}
+func NewHandler(db *db.Database) *Handler {
+	return &Handler{
+		DB: db,
+		// Initialize other dependencies here
+	}
 }
 
 // PingHandler handles the "GET /ping" endpoint.
