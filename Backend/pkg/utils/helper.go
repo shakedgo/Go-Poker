@@ -8,5 +8,3 @@ import (
 func ExampleHelperFunction(input string) string {
 	return strings.ToUpper(input)
 }
-
-// Add more utility functions as needed.
