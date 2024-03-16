@@ -9,7 +9,12 @@ const (
 	Call
 )
 
+var Players []*Player
+
+var playerIDCounter int = 1
+
 type Player struct {
+	ID     int
 	name   string
 	Hand   []Card
 	chips  int
@@ -17,5 +22,17 @@ type Player struct {
 }
 
 func NewPlayer(name string) Player {
-	return Player{name: name, chips: 1000}
+	player := Player{ID: playerIDCounter, name: name, chips: 1000}
+	playerIDCounter++
+	Players = append(Players, &player)
+	return player
+}
+
+func GetPlayerByID(id int) *Player {
+	for _, player := range Players {
+		if player.ID == id {
+			return player
+		}
+	}
+	return nil
 }
