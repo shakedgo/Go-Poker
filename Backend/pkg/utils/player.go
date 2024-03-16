@@ -10,7 +10,12 @@ const (
 )
 
 type Player struct {
-	hand   []Card
+	name   string
+	Hand   []Card
 	chips  int
 	status Status
+}
+
+func NewPlayer(name string) Player {
+	return Player{name: name, chips: 1000}
 }

@@ -36,6 +36,16 @@ func main() {
 	// 	log.Fatal("Failed to start the server:", err)
 	// }
 	table := utils.InitTable()
-
+	player1 := utils.NewPlayer("Shaked")
+	player2 := utils.NewPlayer("Emanuel")
+	err := table.JoinTable(&player1)
+	if err != nil {
+		fmt.Println(err)
+	}
+	err = table.JoinTable(&player2)
+	if err != nil {
+		fmt.Println(err)
+	}
+	table.Deal(&table.Deck)
 	fmt.Println(table)
 }

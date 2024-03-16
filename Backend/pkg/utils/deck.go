@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 	"math/rand"
+	"strings"
 	"time"
 )
 
@@ -57,10 +58,12 @@ func (d *Deck) Shuffle() {
 	}
 }
 
-func (d Deck) ParseDeck() {
+func (d Deck) String() string {
+	var sb strings.Builder
 	for _, card := range d {
-		fmt.Printf("%s of %s\n", cardVal(card.value), cardSuit(card.suit))
+		sb.WriteString(fmt.Sprintf("%s of %s, ", cardVal(card.value), cardSuit(card.suit)))
 	}
+	return sb.String()
 }
 
 func cardVal(value int) string {
@@ -91,4 +94,10 @@ func cardSuit(suit int) string {
 	default:
 		return "Invalid Suit"
 	}
+}
+
+func (c Card) String() string {
+	var sb strings.Builder
+	sb.WriteString(fmt.Sprintf("%s of %s", cardVal(c.value), cardSuit(c.suit)))
+	return sb.String()
 }
