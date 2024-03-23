@@ -65,9 +65,10 @@ func (t Table) String() string {
 	sb.WriteString(fmt.Sprintf("  Minimum Entry: %d\n", t.minEnter))
 	sb.WriteString("  Players:\n")
 	for _, player := range t.players {
-		sb.WriteString(fmt.Sprintf("    - %s (Chips: %d)\n", player.name, player.chips))
-		if player.Hand != nil {
-			sb.WriteString(fmt.Sprintf("      - Hand: [%s, %s]\n", player.Hand[0].String(), player.Hand[1].String()))
+		sb.WriteString(fmt.Sprintf("    Name: %s\n", player.name))
+		sb.WriteString(fmt.Sprintf("    - Chips: %d\n", player.chips))
+		if len(player.Hand) >= 2 {
+			sb.WriteString(fmt.Sprintf("    - Hand: [%s, %s]\n", player.Hand[0].String(), player.Hand[1].String()))
 		}
 	}
 	// sb.WriteString(fmt.Sprintf("  Deck: \n    %v\n", t.Deck))
