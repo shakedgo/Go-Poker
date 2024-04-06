@@ -8,12 +8,12 @@
 
 <script setup lang="ts">
     import { ref } from 'vue'
-    import { useFetch } from '../../api'
+    import { useFetch } from '@/composables/api'
 
     let player = ref(null)
 
     async function newPlayer(){
-        const res = await useFetch('new-player',{name: 'sd'}, 'POST');
+        const res = await useFetch('new-player',{name: 'sd'}, 'POST');/*  */
         if (res) player.value = res.player
     }
 </script>
