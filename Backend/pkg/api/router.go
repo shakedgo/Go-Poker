@@ -4,7 +4,9 @@ import "github.com/gin-gonic/gin"
 
 func SetupRouter() *gin.Engine {
 	router := gin.Default()
-
+	router.Use(func(c *gin.Context) {
+		c.Header("Access-Control-Allow-Origin", "*")
+	})
 	router.POST("/new-player", AddPlayer)
 	router.POST("/join-table", JoinTable)
 	router.GET("/print-table/:id", PrintTable)

@@ -36,6 +36,14 @@
   --section-gap: 160px;
 }
 
+/* vars */
+:root {
+  --gap: 12px;
+  @media (max-width: 600px) {
+      --gap: 8px;
+  }  
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --color-background: var(--vt-c-black);
@@ -64,7 +72,7 @@ body {
   background: var(--color-background);
   transition:
     color 0.5s,
-    background-color 0.5s;
+    background-color 0.1s;
   line-height: 1.6;
   font-family:
     Inter,
@@ -79,8 +87,11 @@ body {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif;
-  font-size: 15px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 18px;
+    @media (max-width: 600px) {
+      font-size: 15px;
+    }
 }
