@@ -10,6 +10,7 @@ func SetupRouter() *gin.Engine {
 	})
 
 	router.POST("/login", Login)
+	router.POST("/signup", Signup)
 	router.POST("/new-player", AddPlayer)
 	router.POST("/join-table", JoinTable)
 	router.GET("/print-table/:id", PrintTable)

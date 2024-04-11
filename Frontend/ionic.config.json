@@ -1,0 +1,7 @@
+{
+  "name": "Go-Poker-ionic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
