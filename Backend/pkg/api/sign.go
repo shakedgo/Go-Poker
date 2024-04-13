@@ -28,6 +28,11 @@ func Login(c *gin.Context) {
 		return
 	}
 
+	if credentials.Username == "" || credentials.Password == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Username or password cannot be empty"})
+		return
+	}
+
 	for _, user := range Users {
 		if user.Username == credentials.Username {
 			err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(credentials.Password))

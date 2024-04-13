@@ -1,20 +1,16 @@
 <template>
     <div class="game_menu">
-      <div class="title">Login</div>
-      <form @submit.prevent="login">
-        <input type="text" v-model="signinForm.username" placeholder="Enter your name">
-        <input type="password" v-model="signinForm.password" placeholder="Enter your password">
-        <button type="submit">Login</button>
+      <div class="title">{{loginForm ? 'Login' : 'Sign Up'}}</div>
+      <form @submit.prevent="loginForm ? login() : signup()">
+        <input type="text" v-model="form.username" placeholder="Enter your name">
+        <input type="password" v-model="form.password" placeholder="Enter your password">
+        <div class="action">
+          <button type="submit">{{loginForm ? 'Login' : 'Sign Up'}}</button>
+          <a class="signup" @click="loginForm = !loginForm">
+            {{loginForm ? "Don't have an account?" :"Have an account?"}}
+          </a>
+        </div>
       </form>
-      <div class="title">Sign Up</div>
-      <form @submit.prevent="signup">
-        <input type="text" v-model="signupForm.username" placeholder="Enter your name">
-        <input type="password" v-model="signupForm.password" placeholder="Enter your password">
-        <button type="submit">Login</button>
-      </form>
-        <!-- <div class="create_player" @click="newPlayer">New Player</div>
-        {{player}}
-        <div>Join Table</div> -->
     </div>
 </template>
 
@@ -22,36 +18,28 @@
     import { ref } from 'vue'
     import { useFetch } from '@/composables/api'
 
-    // let player = ref(null)
-    // async function newPlayer(){
-    //     const res = await useFetch('new-player',{name: 'sd'}, 'POST');
-    //     if (res) player.value = res.player
-    // }
-    let signinForm = ref({
-        username: '',
-        password: ''
-    })
-    let signupForm = ref({
+    let form = ref({
         username: '',
         password: ''
     })
     async function login() {
       try {
-        const res = await useFetch('login', signinForm.value, 'POST');
+        const res = await useFetch('login', form.value, 'POST');
+        console.log(res);
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    async function signup() {
+      try {
+        const res = await useFetch('signup', form.value, 'POST');
         console.log(res);
       } catch (err) {
         console.error(err)
       }
     }
 
-    async function signup() {
-      try {
-        const res = await useFetch('signup', signupForm.value, 'POST');
-        console.log(res);
-      } catch (err) {
-        console.error(err)
-      }
-    }
+    let loginForm = ref(true);
 </script>
 
 <style lang="scss" scoped>
