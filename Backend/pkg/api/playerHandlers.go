@@ -12,19 +12,6 @@ type AddPlayerRequest struct {
 	Name string `json:"name"`
 }
 
-type Credentials struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-
-var Users []Credentials
-
-// Users := []Credentials{
-// 	{username: "Shaked", password: "12345"},
-// 	{username: "Emanu", password: "12345"},
-// }
-// Users = append(Users, credentials{username: "shaked", password: "12345"})
-
 /////////
 // GET //
 /////////
@@ -65,31 +52,4 @@ func AddPlayer(c *gin.Context) {
 
 	// Success message
 	c.JSON(http.StatusOK, gin.H{"message": "Player added successfully", "player": player})
-}
-
-func Login(c *gin.Context) {
-	var credentials Credentials
-
-	if err := c.BindJSON(&credentials); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
-		return
-	}
-
-	for _, user := range Users {
-		if user.Username == credentials.Username && user.Password == credentials.Password {
-			c.JSON(http.StatusOK, gin.H{"message": "Login successful"})
-		}
-	}
-	c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid credentials"})
-}
-
-func Signup(c *gin.Context) {
-	var credentials Credentials
-
-	if err := c.BindJSON(&credentials); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
-		return
-	}
-
-	Users = append(Users, credentials)
 }
