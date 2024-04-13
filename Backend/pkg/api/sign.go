@@ -62,6 +62,13 @@ func Signup(c *gin.Context) {
 		return
 	}
 
+	// collection := db.Client.Database(db.Name).Collection("users")
+	// exist := collection.FindOne(c, bson.D{{Key: "username", Value: credentials.Username}})
+	// if exist != nil {
+	// 	c.JSON(http.StatusConflict, gin.H{"error": "Username is taken"})
+	// 	return
+	// }
+
 	for _, user := range Users {
 		if user.Username == credentials.Username {
 			c.JSON(http.StatusConflict, gin.H{"error": "Username is taken"})
@@ -79,4 +86,5 @@ func Signup(c *gin.Context) {
 	Users = append(Users, credentials)
 
 	c.JSON(http.StatusCreated, gin.H{"message": "Signup successful"})
+
 }
