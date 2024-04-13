@@ -10,11 +10,10 @@ export async function useFetch(fetchRoute: string, data: object, method:httpMeth
 
   if (method !== 'GET') requestOptions.body = JSON.stringify(data);
 
-  try {
-    const res = await fetch(url, requestOptions);
-    if (res.ok) return res.json();
-    else return false
-  } catch (err: any) {
-    throw new Error(err)
+  const res = await fetch(url, requestOptions);
+  if (!res.ok) {
+    const errorResponse = await res.json();
+    throw new Error(errorResponse.error);
   }
+  return res.json();
 }
