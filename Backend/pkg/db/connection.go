@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -17,6 +18,7 @@ var (
 )
 
 func Connect() {
+	log.Println("Connecting DB...")
 	err := godotenv.Load()
 	if err != nil {
 		panic("Error loading .env file")

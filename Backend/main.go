@@ -5,7 +5,7 @@ import (
 	"Go-Poker/pkg/db"
 	"Go-Poker/pkg/utils"
 	"context"
-	"fmt"
+	"log"
 )
 
 func main() {
@@ -18,6 +18,6 @@ func main() {
 		if err := db.Client.Disconnect(context.TODO()); err != nil {
 			panic(err)
 		}
-		fmt.Println("Disconnected Database")
+		log.Println("Disconnected Database")
 	}()
 }
