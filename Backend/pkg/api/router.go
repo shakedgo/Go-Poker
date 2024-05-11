@@ -7,6 +7,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+var Server = &http.Server{
+	Addr:    ":8080",
+	Handler: gin.Default(),
+}
+
 func StartRouter() {
 	router := gin.Default()
 
@@ -21,15 +26,11 @@ func StartRouter() {
 	router.GET("/print-table/:id", PrintTable)
 	router.GET("/print-player/:id", PrintPlayer)
 
+	Server.Handler = router
+
 	go func() {
-		// service connections
 		if err := Server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("listen: %s\n", err)
 		}
 	}()
-}
-
-var Server = &http.Server{
-	Addr:    ":8080",
-	Handler: gin.Default(),
 }
