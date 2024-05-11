@@ -5,7 +5,11 @@ export async function useFetch(fetchRoute: string, data: object, method:httpMeth
   const url = `${BASE_URL}/${fetchRoute}`;
 
   const requestOptions: RequestInit = {
-    method: method
+    method: method,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include' // Include cookies in the request
   }
 
   if (method !== 'GET') requestOptions.body = JSON.stringify(data);

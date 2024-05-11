@@ -1,8 +1,9 @@
 <template>
-    <GameMenu />
+    <Login />
 </template>
 <script setup lang="ts">
-import GameMenu from '../components/Game/GameMenu.vue'
+import Login from '../components/Game/LoginComp.vue'
+
 </script>
 
 <style lang="scss" scoped>

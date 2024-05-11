@@ -16,15 +16,32 @@ func StartRouter() {
 	router := gin.Default()
 
 	router.Use(func(c *gin.Context) {
-		c.Header("Access-Control-Allow-Origin", "http://localhost:5173")
+		c.Header("Access-Control-Allow-Origin", "https://localhost:5173")
+		c.Header("Access-Control-Allow-Credentials", "true") // Allow credentials (cookies) in CORS
+
+		// Handle preflight requests (OPTIONS) for all routes
+		if c.Request.Method == "OPTIONS" {
+			c.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+			c.Header("Access-Control-Allow-Headers", "Content-Type")
+			c.AbortWithStatus(http.StatusOK)
+			return
+		}
+
+		// Continue processing other requests
+		c.Next()
 	})
 
 	router.POST("/login", Login)
 	router.POST("/signup", Signup)
-	router.POST("/new-player", AddPlayer)
-	router.POST("/join-table", JoinTable)
-	router.GET("/print-table/:id", PrintTable)
-	router.GET("/print-player/:id", PrintPlayer)
+
+	protected := router.Group("/")
+	protected.Use(authMiddleware)
+	{
+		protected.POST("/new-player", AddPlayer)
+		protected.POST("/join-table", JoinTable)
+		protected.GET("/print-table/:id", PrintTable)
+		protected.GET("/print-player/:id", PrintPlayer)
+	}
 
 	Server.Handler = router
 

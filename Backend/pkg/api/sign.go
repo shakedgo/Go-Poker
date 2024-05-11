@@ -5,15 +5,26 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt"
 	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
 )
 
+var JwtKey = []byte(os.Getenv("JWT_Key"))
+
 type Credentials struct {
+	ID       string `bson:"_id"`
 	Username string `json:"username"`
 	Password string `json:"password"`
+}
+
+type Claims struct {
+	UserID string `json:"userId"`
+	jwt.StandardClaims
 }
 
 var Users []Credentials
@@ -50,6 +61,30 @@ func Login(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Password"})
 		return
 	}
+
+	expirationTime := time.Now().Add(24 * time.Hour)
+	claims := &Claims{
+		UserID: userFound.ID, // Use the user ID from the database
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: expirationTime.Unix(),
+		},
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenString, err := token.SignedString(JwtKey)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
+		return
+	}
+
+	http.SetCookie(c.Writer, &http.Cookie{
+		Name:     "jwt_token",
+		Value:    tokenString,
+		HttpOnly: true,
+		Secure:   true,
+		SameSite: http.SameSiteStrictMode,
+	})
+
 	c.JSON(http.StatusOK, gin.H{"message": "Login successful"})
 }
 

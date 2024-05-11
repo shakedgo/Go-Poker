@@ -61,7 +61,8 @@ func (d *Deck) Shuffle() {
 func (d Deck) String() string {
 	var sb strings.Builder
 	for _, card := range d {
-		sb.WriteString(fmt.Sprintf("%s of %s, ", cardVal(card.value), cardSuit(card.suit)))
+		sb.WriteString(card.String())
+		// sb.WriteString(fmt.Sprintf("%s of %s, ", cardVal(card.value), cardSuit(card.suit)))
 	}
 	return sb.String()
 }

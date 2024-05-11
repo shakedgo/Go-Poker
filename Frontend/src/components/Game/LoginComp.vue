@@ -2,8 +2,8 @@
     <div class="game_menu">
       <div class="title">{{loginForm ? 'Login' : 'Sign Up'}}</div>
       <form @submit.prevent="loginForm ? login() : signup()">
-        <input type="text" v-model="form.username" placeholder="Enter your name">
-        <input type="password" v-model="form.password" placeholder="Enter your password">
+        <input type="text" name="username" v-model="form.username" placeholder="Enter your name">
+        <input type="password" name="password" v-model="form.password" placeholder="Enter your password">
         <div class="action">
           <button type="submit">{{loginForm ? 'Login' : 'Sign Up'}}</button>
           <a class="signup" @click="loginForm = !loginForm">
