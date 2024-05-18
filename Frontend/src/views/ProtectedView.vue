@@ -8,17 +8,16 @@
     import { ref } from 'vue'
     import { useFetch } from '@/composables/api'
 
-    let ans = ref()
-    async function getTable() {
+    let ans = ref();
+    (async () => {
       try {
-        const res = await useFetch('print-table/1', {}, 'GET');
-        console.log(res);
+        const res = await useFetch('print-table/1');
         ans.value = res;
       } catch (err) {
         console.error(err)
       }
-    }
-    getTable();
+    })()
+    // getTable();
 </script>
 
 <style lang="scss" scoped>

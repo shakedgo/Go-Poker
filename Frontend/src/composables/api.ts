@@ -1,6 +1,6 @@
 type httpMethod =  'GET' | 'POST' | 'PUT' | 'DELETE'
 
-export async function useFetch(fetchRoute: string, data: object, method:httpMethod = 'GET') {
+export async function useFetch(fetchRoute: string, data: object|null = null, method:httpMethod = 'GET') {
   const BASE_URL = 'http://localhost:8080';
   const url = `${BASE_URL}/${fetchRoute}`;
 

@@ -37,6 +37,7 @@ func StartRouter() {
 	protected := router.Group("/")
 	protected.Use(authMiddleware)
 	{
+		router.POST("/logout", Logout)
 		protected.POST("/new-player", AddPlayer)
 		protected.POST("/join-table", JoinTable)
 		protected.GET("/print-table/:id", PrintTable)

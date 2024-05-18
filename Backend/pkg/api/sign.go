@@ -88,6 +88,27 @@ func Login(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Login successful"})
 }
 
+func Logout(c *gin.Context) {
+	// Get the JWT token from the request cookies
+	_, err := c.Request.Cookie("jwt_token")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No JWT token found"})
+		return
+	}
+
+	// Clear the JWT token cookie
+	http.SetCookie(c.Writer, &http.Cookie{
+		Name:     "jwt_token",
+		Value:    "",
+		Expires:  time.Unix(0, 0), // Set the expiration time to the past
+		HttpOnly: true,
+		Secure:   true,
+		SameSite: http.SameSiteStrictMode,
+	})
+
+	c.JSON(http.StatusOK, gin.H{"message": "Logout successful"})
+}
+
 func Signup(c *gin.Context) {
 	var credentials Credentials
 
